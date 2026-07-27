@@ -15,7 +15,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--faded-copper);
+  background-color: var(--faded-copper);
 }
 
 body {
@@ -28,10 +28,43 @@ body {
   height: 100dvh;
   max-width: 480px;
   margin: 0 auto;
-  background: var(--almond);
+  background-color: var(--almond);
   overflow: hidden;
   position: relative;
+  z-index: 0;
   color: var(--coffee-bean);
+}
+
+/* Falling background decor (hearts, flowers, teddy bears, candies, lollipops,
+   chocolate, cats, coffee cups, stripes, geometric accents) */
+.bg-decor {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-decor-outer {
+  position: fixed;
+  inset: 0;
+}
+
+.bg-decor-inner {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.bg-icon {
+  position: absolute;
+  top: -12vh;
+  will-change: transform;
+  animation-name: bg-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bg-fall {
+  from { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  to { transform: translateY(124vh) rotate(var(--rot, 0deg)); }
 }
 
 .track {
