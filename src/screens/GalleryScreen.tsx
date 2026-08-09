@@ -6,7 +6,7 @@ export default function GalleryScreen() {
       <div className="gallery-title">Наши моменты</div>
       <div className="gallery-grid">
         {PHOTOS.map((photo) => (
-          <img key={photo} className="gallery-photo" src={`/assets/${photo}`} alt="Мы вместе" />
+          <img key={photo} className="gallery-photo" src={`${import.meta.env.BASE_URL}assets/${photo}`} alt="Мы вместе" />
         ))}
       </div>
     </section>

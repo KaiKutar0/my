@@ -19,7 +19,7 @@ export default function TimerScreen() {
 
   return (
     <section className="screen screen-timer" data-screen-label="Таймер">
-      <img className="couple-photo" src="/assets/couple.jpg" alt="Мы вместе" />
+      <img className="couple-photo" src={`${import.meta.env.BASE_URL}assets/couple.jpg`} alt="Мы вместе" />
       <div className="timer-title">До встречи</div>
       <div className="countdown-grid">
         <div className="countdown-tile">

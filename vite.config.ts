@@ -4,4 +4,7 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  // GitHub Pages serves this project repo at https://kaikutar0.github.io/my/,
+  // so all built asset URLs need this subpath prefix.
+  base: '/my/',
 });
