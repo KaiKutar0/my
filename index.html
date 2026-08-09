@@ -10,83 +10,11 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div class="app" id="app">
-    <div class="track" id="track">
-
-      <section class="screen screen-greet" data-screen-label="Приветствие">
-        <div class="greet-title" id="greetTitle"></div>
-        <div class="greet-sub" id="greetSub"></div>
-        <div class="greet-caption">Скоро мы будем жить вместе! Наконец-то!</div>
-      </section>
-
-      <section class="screen screen-timer" data-screen-label="Таймер">
-        <img class="couple-photo" src="assets/couple.jpg" alt="Мы вместе" />
-        <div class="timer-title">До встречи</div>
-        <div class="countdown-grid">
-          <div class="countdown-tile">
-            <div class="countdown-num" id="days">0</div>
-            <div class="countdown-label">дней</div>
-          </div>
-          <div class="countdown-tile">
-            <div class="countdown-num" id="hours">0</div>
-            <div class="countdown-label">часов</div>
-          </div>
-          <div class="countdown-tile">
-            <div class="countdown-num" id="mins">0</div>
-            <div class="countdown-label">минут</div>
-          </div>
-          <div class="countdown-tile">
-            <div class="countdown-num" id="secs">0</div>
-            <div class="countdown-label">секунд</div>
-          </div>
-        </div>
-        <div class="distance-card">
-          <div class="distance-route" id="distanceRoute"></div>
-          <div class="distance-km"><span id="distanceKm"></span> км</div>
-          <div class="distance-note" id="distanceNote"></div>
-        </div>
-      </section>
-
-      <section class="screen screen-game" data-screen-label="Игра">
-        <div class="game-title">Котокраш</div>
-        <div class="game-sub">Собирай трёх и больше котят одного цвета в ряд</div>
-        <div class="game-score">Очки: <span class="score-value" id="score">0</span></div>
-        <div class="game-board" id="gameBoard"></div>
-      </section>
-
-      <section class="screen screen-letter" data-screen-label="Письмо">
-        <div class="letter-card" id="letterCard">Настенька,
-
-          Пока ты читаешь это где-то тикает таймер до 14 августа - дня, когда мы наконец окажемся в у себя дома
-
-          Спасибо что дождалась, cпасибо, что дожидаешься, oсталось совсем немного.
-
-          Твой навсегда, Юра</div>
-      </section>
-
-      <section class="screen screen-gallery" data-screen-label="Галерея">
-        <div class="gallery-title">Наши моменты</div>
-        <div class="gallery-grid">
-          <img class="gallery-photo" src="assets/couple2.jpg" alt="Мы вместе" />
-          <img class="gallery-photo" src="assets/couple3.jpg" alt="Мы вместе" />
-          <img class="gallery-photo" src="assets/couple4.jpg" alt="Мы вместе" />
-          <img class="gallery-photo" src="assets/couple5.jpg" alt="Мы вместе" />
-          <img class="gallery-photo" src="assets/couple6.jpg" alt="Мы вместе" />
-
-
-        </div>
-      </section>
-
-    </div>
-
-    <div class="dots" id="dots"></div>
-  </div>
-
-  <script src="script.js"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>

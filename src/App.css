@@ -69,15 +69,15 @@ body {
 
 .track {
   display: flex;
-  width: 500%;
+  width: 800%;
   height: 100%;
   transform: translateX(0%);
   transition: transform 0.35s ease;
 }
 
 .screen {
-  flex: 0 0 20%;
-  width: 20%;
+  flex: 0 0 12.5%;
+  width: 12.5%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -190,7 +190,7 @@ body {
 /* Screen 3: Game */
 .screen-game {
   padding: 28px 20px 70px;
-  gap: 14px;
+  gap: 12px;
   align-items: center;
 }
 
@@ -206,20 +206,34 @@ body {
   text-align: center;
 }
 
-.game-score {
+/* Shared stat row (Game + Casino: Очки / Рыбки tiles) */
+.stat-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.stat-tile {
+  flex: 1;
   background: var(--pale-oak);
-  border-radius: 999px;
-  padding: 6px 18px;
-  font-size: 14px;
+  border-radius: 14px;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--toffee);
+}
+
+.stat-value {
+  display: inline-block;
+  font-size: 20px;
   font-weight: 700;
   color: var(--coffee-bean);
 }
 
-.game-score .score-value {
-  display: inline-block;
-}
-
-.game-score.pulse .score-value {
+.stat-value.pulse {
   animation: score-pop 0.35s ease;
 }
 
@@ -264,6 +278,11 @@ body {
   will-change: top, left, transform, opacity;
 }
 
+.kitten-head-host {
+  width: 100%;
+  height: 100%;
+}
+
 .kitten.selected {
   border-color: var(--coffee-bean);
   transform: scale(1.06);
@@ -292,26 +311,31 @@ body {
   80% { transform: translateX(2%); }
 }
 
-.kitten::before,
-.kitten::after {
-  content: '';
+/* Shared kitten head (KittenHead component): rounded-square + ears + eyes + nose.
+   Self-contained and reused as-is by the game board, the casino reels, and the
+   avatar's Skin component — only background color and overall size ever change. */
+.kitten-head {
+  position: relative;
+  border-radius: 28%;
+}
+
+.kitten-head-ear {
   position: absolute;
   top: -16%;
   width: 24%;
   height: 32%;
-  background: inherit;
   clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
 }
 
-.kitten::before {
+.kitten-head-ear-left {
   left: 10%;
 }
 
-.kitten::after {
+.kitten-head-ear-right {
   right: 10%;
 }
 
-.kitten .eye {
+.kitten-head-eye {
   position: absolute;
   top: 38%;
   width: 14%;
@@ -320,15 +344,15 @@ body {
   background: #2c2626;
 }
 
-.kitten .eye-left {
+.kitten-head-eye-left {
   left: 22%;
 }
 
-.kitten .eye-right {
+.kitten-head-eye-right {
   right: 22%;
 }
 
-.kitten .nose {
+.kitten-head-nose {
   position: absolute;
   top: 56%;
   left: 44%;
@@ -338,7 +362,271 @@ body {
   background: var(--faded-copper);
 }
 
-/* Screen 4: Letter */
+/* Screen 4: Casino */
+.screen-casino {
+  padding: 32px 24px 70px;
+  gap: 16px;
+  align-items: center;
+}
+
+.casino-sub {
+  font-size: 12px;
+  color: var(--toffee);
+  text-align: center;
+}
+
+.reels {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  background: var(--pale-oak);
+  border-radius: 20px;
+  padding: 20px 12px;
+  box-shadow: 0 8px 24px rgba(127, 85, 57, 0.25);
+}
+
+.reel-window {
+  position: relative;
+  flex: 1 1 0;
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 16px;
+  border: 3px solid var(--white);
+  background: var(--tan);
+  overflow: hidden;
+}
+
+.reel-idle {
+  width: 100%;
+  height: 100%;
+}
+
+.reel-strip {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.reel-strip.spinning {
+  animation-name: reel-scroll;
+  animation-duration: var(--spin-duration, 1s);
+  animation-timing-function: cubic-bezier(0.18, 0.82, 0.32, 1);
+  animation-fill-mode: forwards;
+}
+
+.reel-symbol {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes reel-scroll {
+  from { transform: translateY(var(--start-y, 0)); }
+  to { transform: translateY(0); }
+}
+
+.spin-result {
+  font-size: 14px;
+  color: var(--coffee-bean);
+  text-align: center;
+  min-height: 20px;
+}
+
+.spin-btn {
+  padding: 14px 32px;
+  border-radius: 24px;
+  background: var(--coffee-bean);
+  color: var(--almond);
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.spin-btn:disabled {
+  background: #c9b8a8;
+  cursor: not-allowed;
+}
+
+/* Screen 5: Shop */
+.screen-shop {
+  padding: 28px 20px 70px;
+  gap: 12px;
+}
+
+.shop-balance {
+  text-align: center;
+  font-size: 14px;
+  color: var(--coffee-bean);
+}
+
+.shop-tabs {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.shop-tab {
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  background: var(--pale-oak);
+  color: var(--coffee-bean);
+  border: none;
+  flex: 0 0 auto;
+}
+
+.shop-tab.active {
+  background: var(--coffee-bean);
+  color: var(--almond);
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.shop-item {
+  background: var(--pale-oak);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.shop-item-swatch {
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+}
+
+.shop-item-swatch-icon {
+  background: var(--tan);
+  border: 1px solid rgba(127, 85, 57, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hat-icon,
+.glasses-icon,
+.clothes-icon {
+  filter: drop-shadow(0 1px 1.5px rgba(44, 26, 15, 0.35));
+}
+
+.shop-item-name {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--coffee-bean);
+}
+
+.shop-item-price {
+  font-size: 11px;
+  color: var(--toffee);
+}
+
+.shop-item-action {
+  width: 100%;
+  text-align: center;
+  padding: 6px 4px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--almond);
+  background: var(--coffee-bean);
+  border: none;
+  cursor: pointer;
+}
+
+.shop-item-action.owned {
+  background: var(--coffee-bean);
+}
+
+.shop-item-action.equipped {
+  background: var(--tan);
+  cursor: default;
+}
+
+.shop-item-action.locked {
+  background: #c9b8a8;
+  cursor: not-allowed;
+}
+
+/* Screen 6: Avatar */
+.screen-avatar {
+  padding: 32px 24px 70px;
+  gap: 18px;
+  align-items: center;
+}
+
+.avatar-frame {
+  width: 220px;
+  height: 220px;
+  border-radius: 28px;
+  background: var(--almond);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(127, 85, 57, 0.25);
+  transition: background 0.25s ease;
+}
+
+.avatar-cat {
+  position: relative;
+  width: 130px;
+  height: 130px;
+}
+
+/* The base face itself is the shared .kitten-head (via the Skin component); only the
+   background-transition needs restating here since KittenHead sets it inline per-render. */
+.avatar-cat .kitten-head {
+  transition: background 0.25s ease;
+}
+
+.avatar-hat {
+  position: absolute;
+  top: -24px;
+  left: 27%;
+  width: 46%;
+  aspect-ratio: 40 / 30;
+}
+
+.avatar-glasses {
+  position: absolute;
+  top: 38%;
+  left: 11%;
+  width: 78%;
+  aspect-ratio: 2 / 1;
+  opacity: 0.92;
+}
+
+.avatar-clothes {
+  position: absolute;
+  bottom: -14px;
+  left: 4%;
+  width: 92%;
+  aspect-ratio: 40 / 26;
+}
+
+.avatar-caption {
+  font-size: 13px;
+  color: var(--toffee);
+  text-align: center;
+}
+
+/* Screen 7: Letter */
 .screen-letter {
   padding: 32px 24px 70px;
 }
@@ -354,7 +642,7 @@ body {
   white-space: pre-line;
 }
 
-/* Screen 5: Gallery */
+/* Screen 8: Gallery */
 .screen-gallery {
   padding: 28px 20px 70px;
   gap: 14px;
@@ -411,13 +699,13 @@ body {
   right: 0;
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   z-index: 10;
 }
 
 .dot {
-  height: 8px;
-  width: 8px;
+  height: 7px;
+  width: 7px;
   border-radius: 4px;
   background: rgba(176, 137, 104, 0.35);
   transition: all 0.3s;
@@ -425,6 +713,6 @@ body {
 }
 
 .dot.active {
-  width: 22px;
+  width: 20px;
   background: var(--faded-copper);
 }
